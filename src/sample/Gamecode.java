@@ -24,7 +24,7 @@ public class Gamecode extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         GridPane root = new GridPane();
-        Scene scene = new Scene(root,500,300);
+        Scene scene = new Scene(root,500,400);
 
         primaryStage.setTitle("Simon Says");
         primaryStage.setScene(scene);
