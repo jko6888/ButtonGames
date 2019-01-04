@@ -2,7 +2,7 @@
     -fx-background-color: white;
 }
 .label{
-    -fx-font-size:20;
+    -fx-font-size:30;
 }
 Button
 {
@@ -11,8 +11,4 @@ Button
     -fx-min-height: 100px;
     -fx-max-height: 100px;
     -fx-display: center;
-}
-Button:pressed
-{
-    -fx-background-color: pink;
 }
