@@ -1,5 +1,8 @@
 package sample;
 
+import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -22,6 +25,7 @@ import javafx.stage.Stage;
 import javafx.scene.input.MouseEvent;
 
 import javafx.scene.text.TextBuilder;
+import javafx.util.Duration;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -29,12 +33,12 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Gamecode extends Application{
-    public Label username;
-    public Button button1;
-    public Button button2;
-    public Button button3;
-    public Button button4;
+public class GameCode extends Application{
+    public Label name;
+    public Button first;
+    public Button second;
+    public Button third;
+    public Button fourth;
     private Button startButton;
 
     @Override
@@ -52,22 +56,23 @@ public class Gamecode extends Application{
         buttonContainer.setAlignment(Pos.CENTER);
         buttonContainer.setSpacing(10);
 
-        button1 = new Button("Yellow");
-        button2 = new Button("Blue");
-        button3 = new Button("Red");
-        button4 = new Button("Green");
+        first = new Button("Blue");
+        second = new Button("Red");
+        third = new Button("Green");
+        fourth = new Button("Yellow");
 
-        buttonContainer.getChildren().addAll(button1, button2, button3, button4);
+        buttonContainer.getChildren().addAll(first, second, third, fourth);
 
         HBox controlContainer = new HBox();
         controlContainer.setAlignment(Pos.CENTER);
         controlContainer.setSpacing(10);
         final TextField name = new TextField();
-        name.setPromptText("Enter your name");
+        name.setPromptText("Name");
         name.setPrefColumnCount(10);
         name.getText();
 
         startButton = new Button("Start");
+        startButton.setStyle("-fx-min-width: 80px;" + "-fx-max-width: 80px;");
         controlContainer.getChildren().addAll(startButton, name);
 
 
@@ -75,42 +80,45 @@ public class Gamecode extends Application{
         scene.getStylesheets().add(this.getClass().getResource("Display.css").toExternalForm());
 
         startButton.setOnAction(new EventHandler<ActionEvent>() {
-
             public void handle(ActionEvent event) {
                 controlContainer.getChildren().removeAll(startButton, name);
-                int round = 0;
-                for(int i = 0; i< round + 1;i++)
-                {
-                    int r = (int)((Math.random() *4) + 1);
-                    System.out.println(i);
-                    System.out.println(r);
-                    if(r == 1)
-                    {
-                        button1.setStyle("-fx-background-color: yellow;");
-                    }
-                    if(r == 2)
-                    {
-                        button2.setStyle("-fx-background-color: blue;");
-                    }
-                    if(r == 3)
-                    {
-                        button3.setStyle("-fx-background-color: red;");
-                    }
-                    if(r == 4)
-                    {
-                        button4.setStyle("-fx-background-color: green;");
-                    }
 
-                    round++;
-                    try
-                    {
-                        wait(100);
+                new AnimationTimer() {
+                    private long tick;
+                    private int round = 1;
+
+                    @Override
+                    public void handle(long now) {
+                        if (this.tick == 0) this.tick = now;
+                        long dt = now - this.tick;
+                        int i=0;
+
+                        if (dt > 0.5) {
+                            first.setStyle("-fx-background-color: Blue;");
+                            second.setStyle("-fx-background-color: Red;");
+                            third.setStyle("-fx-background-color: Green;");
+                            fourth.setStyle("-fx-background-color: Yellow;");
+                        }
+
+                        if (dt > 1) {
+                            System.out.println("");
+                            int r = ((int)(Math.random() * 4) );
+                            if (r == 1) {
+                                first.setStyle("-fx-background-color: Black;");
+                            }
+                            if (r == 2) {
+                                second.setStyle("-fx-background-color: Black;");
+                            }
+                            if (r == 3) {
+                                third.setStyle("-fx-background-color: Black;");
+                            }
+                            if (r == 4) {
+                                fourth.setStyle("-fx-background-color: Black;");
+                            }
+
+                        }
                     }
-                    catch ( InterruptedException error)
-                    {
-                        System.out.println("OW");
-                    }
-                }
+                }.start();
             }
         });
 
@@ -128,23 +136,23 @@ public class Gamecode extends Application{
         int round = 0;
         for(int i = 1; i< round + 1;i++)
         {
-            int r = (int)((Math.random() *4) + 1);
+            int r = (int)((Math.random() *10) + 1);
             System.out.println(i);
             if(r == 1)
             {
-                button1.setStyle("-fx-background-color: yellow;");
+                first.setStyle("-fx-background-color: yellow;");
             }
             if(r == 2)
             {
-                button2.setStyle("-fx-background-color: blue;");
+                second.setStyle("-fx-background-color: yellow;");
             }
             if(r == 3)
             {
-                button3.setStyle("-fx-background-color: red;");
+                third.setStyle("-fx-background-color: yellow;");
             }
             if(r == 4)
             {
-                button4.setStyle("-fx-background-color: green;");
+                fourth.setStyle("-fx-background-color: yellow;");
             }
 
         }
